@@ -9,12 +9,12 @@
 
 #include<stdio.h>
 
-#define MAXSIZE 20      /* 存储空间初始分配量 */
-typedef int ElemType;   /* ElemType 类型根据实际情况而定 */
+#define MAXSIZE 20              /* 存储空间初始分配量 */
+typedef int ElemType;           /* ElemType 类型根据实际情况而定 */
 typedef struct
 {
-    ElemType data[MAXSIZE]; /* 数组存储数据元素， 最大值为 MAXSIZE */
-    int length;             /* 线性表当前长度 */
+    ElemType data[MAXSIZE];     /* 数组存储数据元素， 最大值为 MAXSIZE */
+    int length;                 /* 线性表当前长度 */
 }SqList;
 
 
@@ -37,7 +37,7 @@ int Partition(SqList *L, int low, int high)
         while (low < high && L->data[low] <= pivotkey) low++;
         swap(L, low, high);             /* 比枢轴大的值交换到高端 */
     }
-    return low;                     /* 返回枢轴所在的位置 */
+    return low;                         /* 返回枢轴所在的位置 */
 }
 
 /* 对顺序表 L 中的子序列 L->data[low..high] 作快速排序*/
@@ -68,18 +68,17 @@ void InsertSort(SqList *L) {
 /* 1. 优化选取枢轴：排序速度的快慢取决于L.data[1]的关键字处在整个序列的位置 */
 /* 优化方法： 随机选取法(不稳定)， 三数取中法(左中右)，九数取中法(适合大序列)*/
 /* 2. 优化不必要的交换： 不需要交换枢轴 */
-
 int Partition_Optimum(SqList *L, int low, int high)
 {
     int pivotkey;
     /* 三数取中法(median-of-three): start */
-    int m = low + (high - low) / 2; /* 计算数组中间元素的下标 */
+    int m = low + (high - low) / 2;     /* 计算数组中间元素的下标 */
     if (L->data[low] > L->data[high])
-        swap(L, low, high);         /* 交换左端与右端数据， 保证左端较小 */
+        swap(L, low, high);             /* 交换左端与右端数据， 保证左端较小 */
     if (L->data[m] > L->data[high])
-        swap(L, high, m);           /* 交换中间与右端数据， 保证中间较小 */
+        swap(L, high, m);               /* 交换中间与右端数据， 保证中间较小 */
     if (L->data[m] > L->data[low])
-        swap(L, m, low);            /* 交换中间与左端数据， 保证左端较小 */
+        swap(L, m, low);                /* 交换中间与左端数据， 保证左端较小 */
     /* 此时 L.data[low] 已经是整个序列左中右三个关键字的中间值。 */
     /* 三数取中法(median-of-three): end */
 
@@ -101,18 +100,16 @@ int Partition_Optimum(SqList *L, int low, int high)
 
 /* 3. 优化小数组时的排序方案： 解决大材小用问题 */
 /* 数组较小时， 快速排序(使用了递归)不如直接插入排序 (直接插入排序时简单排序中性能最好的) */
-
-#define MAX_LENGTH_INSERT_SORT 7    /* 最优数组长度阈值：7 或是 50 */
+#define MAX_LENGTH_INSERT_SORT 7                    /* 最优数组长度阈值：7 或是 50 */
 /* 对顺序表 L 中的子序列 L->data[low..high] 作快速排序*/
 void QSort_Optimum_SetThreshold (SqList *L, int low, int high) {
     int pivot;
-    if ((high - low) > MAX_LENGTH_INSERT_SORT) {
-        /* 当high-low 大于常数时用快速排序 */
+    if ((high - low) > MAX_LENGTH_INSERT_SORT) {    /* 当high-low 大于常数时用快速排序 */
         pivot = Partition_Optimum(L, low, high);    /* 利用三数取中法，算出枢轴值 pivot. 并用替换法排序*/
         QSort(L, low, pivot-1);                     /* 对低子表递归排序 */
         QSort(L, pivot+1, high);                    /* 对高子表递归排序 */
     }
-    else    /* 当high - low 小于等于常数时用直接插入排序 */
+    else                                            /* 当high - low 小于等于常数时用直接插入排序 */
         InsertSort(L);
 }
 
@@ -123,7 +120,7 @@ void QSort_Optimum_TailRecursion (SqList *L, int low, int high) {
     int pivot;
     if ((high - low) > MAX_LENGTH_INSERT_SORT) {
         while (low < high) {
-            // pivot = Partition(L, low, high);    /* 将 L->data[row..high] 一分为二 , 算出枢轴值 pivot.*/
+            // pivot = Partition(L, low, high);         /* 将 L->data[row..high] 一分为二 , 算出枢轴值 pivot.*/
             pivot = Partition_Optimum(L, low, high);    /* 利用三数取中法，算出枢轴值 pivot. 并用替换法排序*/
             QSort_Optimum_TailRecursion(L, low, pivot-1);   /* 对低子表递归排序 */
             low = pivot + 1;                                /* 尾递归 */
@@ -135,8 +132,8 @@ void QSort_Optimum_TailRecursion (SqList *L, int low, int high) {
 
 /* 对顺序表L作快速排序 */
 void QuickSort (SqList *L) {
-    // QSort(L, 1, L->length);         /* 1.调用原始快速排序算法 */
-    // QSort_Optimum_SetThreshold(L, 1, L->length);   /* 2.优化选择快速或是直接插入排序 */
+    // QSort(L, 1, L->length);                          /* 1.调用原始快速排序算法 */
+    // QSort_Optimum_SetThreshold(L, 1, L->length);     /* 2.优化选择快速或是直接插入排序 */
     QSort_Optimum_TailRecursion(L, 1, L->length);       /* 3.尾递归优化算法 */
 }
 
