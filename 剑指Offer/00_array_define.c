@@ -56,7 +56,7 @@ void define_arr2() {
 
 /* 函数返回二维数组 */
 int **foo(int rows, int columns) {
-    // 定义二维数组，并申请内存
+    // 定义二维数组，并合理申请内存
     int **result = (int **)malloc(rows * sizeof(int *));
     for (int i = 0; i < rows; i++) {
         result[i] = (int *)malloc(columns * sizeof(int));
