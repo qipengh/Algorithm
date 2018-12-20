@@ -29,6 +29,7 @@
 
 #include <stdio.h>
 #define MAXSIZE 20
+
 /* 栈的顺序存储结构(游标卡尺)及其实现 */
 // 栈的结构定义
 typedef int SElemType;  // 定义 SElemType 为 int 型
@@ -105,3 +106,50 @@ Status DoublePop(SqDoubleStack *S, SElemType *e, int stackNumber) {
         *e = S->data[S->top--];     // 将栈2的栈顶元素出栈
     }
 }
+
+/* 栈的链式存储结构及实现 */
+// 栈顶放在单链表的头部，对于链栈，不需要头结点
+// 链栈的结构代码
+typedef struct StackNode
+{
+    SElemType data;
+    struct StackNode *next;
+}StackNode,*LinkStackPtr;
+
+typedef struct LinkStack
+{
+    LinkStackPtr top;
+    int count;
+}LinkStack;
+
+// 链栈的进栈操作： 插入元素 e
+Status LinkStack_Push(LinkStack *S, SElemType e) {
+    LinkStackPtr s = (LinkStackPtr)malloc(sizeof(StackNode));
+    s->data = e;
+    s->next = S->top;   // 将当前的栈顶元素赋值给新节点的直接后继
+    S->top = s;         // 将新的结点s赋值给栈顶指针
+    S->count += 1;
+
+    return OK;
+}
+
+// 链栈的出栈操作Pop：三步：变量p存储要删除的结点；栈顶指针下移；释放p
+Status LinStack_Pop(LinkStack *S, SElemType *e) {
+    LinkStackPtr p;
+    // if (S->top == NULL)
+    //     return ERROR;
+    if (StackEmpty(*S))
+        return ERROR;
+    *e = S->top->data;
+    p = S->top;             // 栈顶结点赋值给 p
+    S->top = S->top->next;  // 栈顶指针下移一位，指向后一结点
+    free(p);                // 释放结点p
+    S->count += 1;
+
+    return OK;
+}
+
+/* 顺序栈和链栈的区别
+*   时间复杂度均为O(1)。空间性能：顺序栈需要事先固定长度，可能存在内存空间浪费，但存取时定位方便
+*   链栈要求每个元素都有指针域，增加内存开销，但对于栈长度无限制。
+*/
