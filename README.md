@@ -1,24 +1,65 @@
-﻿# Algorithm
-## From: 
-1. 剑指Offer
-2. 大话数据结构[作者博客](http://cj723.cnblogs.com/),[书籍源代码](https://www.cnblogs.com/cj723/archive/2011/02/06/1949498.html)
-### 剑指Offer
+# CS-Notes
 
-### 大话数据结构
-本书适合学过一门编程语言的各类读者，包括在读的大中专计算机专业学生、想转行做开发的非专业人员、欲考计算机研究生的应届或在职人员、以及工作后需要补学或温习数据结构和算法的程序员等。 
-#### 内容目录
-* 数据结构介绍、算法推导大O阶的方法
-* 顺序结构与链式结构差异、栈与队列的应用
-* 串的朴素模式匹配、KMP模式匹配算法
-* 二叉树前中后序遍历、赫夫曼树及应用
-* 图的深度、广度遍历
-* 最小生成树两种算法、最短路径两种算法
-* 拓扑排序与关键路径算法
-* 折半查找、插值查找、斐波那契查找等静态查找
-* 稠密索引、分块索引、倒排索引等索引技术二叉排序树、平衡二叉树等动态查找
-* B树、B+树技术，散列表技术
-* 冒泡、选择、插入等简单排序
-* 希尔、堆、归并、快速等改进排序
+**Code**
+- C&&C++
+- Python
+
+**CS**
+- 数据结构
+- 算法（剑指offer、LeetCode）
+- Linux
+
+**AI**
+- TensorFlow
+
+# 学习计划(重要！！！)
+
+- **总体目标**
+**收藏夹的学习资料学习一遍**
+- 1. {2020.05.29-2020.06.30}
+
+
+## Linux
+
+- [Linux命令大全](https://man.linuxde.net)
+- [Linux工具快速教程 — Linux Tools Quick Tutorial](https://linuxtools-rst.readthedocs.io/zh_CN/latest/index.html)
+
+- Vim
+
+- VSCode
+
+- Git
+
+- 代码调试
+| 命令|说明|
+|:----|:-----|
+|$gdb <programmer>	|启动gdb|
+|gdb --args exec arg1 arg2	|调试带有命令行参数的程序|
+|> bt(breaktraces)	|显示所有的函数调用栈帧信息|
+|>break main	|设置断点|
+|>run	|运行调试程序|
+|>continue	|继续执行到下一个断点处（或结束）|
+|>next	|单步调试|
+|>print var1	|打印某个变量值|
+|>list	|显示当前调试处的源代码|
+|>info b	|显示当前断点调试情况|
+
+
+目标文件分析	说明
+$readelf -all a.out	查看二进制文件信息
+$nm myProgrammer	列出目标文件的符号清单
+$size a.out	查看程序内存占用
+strip	
+
+
+
+
+# 进阶
+
+## 设计模式
+- [写给大家看的设计模式](https://segmentfault.com/a/1190000010706695)
+- [图说设计模式](https://design-patterns.readthedocs.io/zh_CN/latest/index.html)
+
 
 
 
