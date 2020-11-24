@@ -1,5 +1,7 @@
 # CS-Notes
 
+8大原则
+
 **Code**
 - C&&C++
 - Python
